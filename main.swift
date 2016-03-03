@@ -7,7 +7,6 @@
 //
 
 import Foundation
-
 var test = "35 15 + 7 * 3.5 / sqrt"
 let eval = Evaluator()
 print("First test:")
@@ -20,3 +19,7 @@ var thirdTest = "312 + 12 55 * sqrt"
 print("")
 print("Third test:")
 print(eval.rpEval(thirdTest))
+var fourthTest = "12 40 - sqrt 3 5 +"
+print("")
+print("Fourth test:")
+print(eval.rpEval(fourthTest))

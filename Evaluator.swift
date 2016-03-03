@@ -31,10 +31,15 @@ class Evaluator {
             } else {
                 if (ops[item] != nil) {
                     switch ops[item]!{
-                    case .unaryOP(_,let operation):
+                    case .unaryOP(let symbol,let operation):
                         if let a = stack.pop() {
-                            stack.push(operation(Double(a)))
-                            print("\(stack) H")
+                            if (symbol == "sqrt" && a < 0) {
+                                print("cannot preform square root of a negative number")
+                                print("\(stack) H")
+                            } else {
+                                stack.push(operation(Double(a)))
+                                print("\(stack) H")
+                            }
                         } else {
                             print("There weren't enough numbers for this operation")
                         }
