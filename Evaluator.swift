@@ -32,13 +32,23 @@ class Evaluator {
                 if (ops[item] != nil) {
                     switch ops[item]!{
                     case .unaryOP(_,let operation):
-                        stack.push(operation(Double(stack.pop()!)))
-                        print("\(stack) H")
+                        if let a = stack.pop() {
+                            stack.push(operation(Double(a)))
+                            print("\(stack) H")
+                        } else {
+                            print("There weren't enough numbers for this operation")
+                        }
                     case .binaryOP(_, let operation):
-                        let a = stack.pop()!
-                        let b = stack.pop()!
-                        stack.push(operation(b,a))
-                        print("\(stack) H")
+                        if let a = stack.pop() {
+                            if let b = stack.pop() {
+                                stack.push(operation(b,a))
+                                print("\(stack) H")
+                            } else {
+                                print("There weren't enough numbers for this operation")
+                            }
+                        } else {
+                            print("There weren't enough numbers for this operation")
+                        }
                     }
                 } else {
                     print("invalid input \" \(item) \"")

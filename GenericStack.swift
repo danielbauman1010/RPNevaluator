@@ -7,77 +7,52 @@
 //
 
 import Foundation
-class Node<T> {
-    let data: T
-    var next: Node?
-    
-    init(data: T){
-        self.data = data
-    }
-}
 struct Stack<T> : CustomStringConvertible{
-    var size: Int
-    var head: Node<T>?
+    var items: [T]
+    var size: Int?
     init(size: Int, fill: T) {
+        self.items = [T](count: size, repeatedValue: fill)
         self.size = size
-        self.head = Node(data: fill)
     }
+    
     init(size: Int) {
+        self.items = [T]()
         self.size = size
-        self.head = nil
     }
+    
+    init() {
+        self.items = [T]()
+        self.size = nil
+    }
+    
     func isEmpty()->Bool {
-        return self.head == nil
+        return self.items.count == 0
     }
+
     func isFull()->Bool {
-        if(isFullH(head) == self.size) {
-            return true
+        if (self.size != nil) {
+            return self.items.count == self.size!
         }
         return false
     }
-    func isFullH(c: Node<T>?)->Int{
-        if(c == nil){
-            return 0
-        } else {
-            return 1 + isFullH(c!.next)
-        }
-    }
+    
     mutating func push(element: T) {
-        if(self.isEmpty()) {
-            self.head = Node(data: element)
-        } else {
-            let temp = self.head
-            self.head = Node(data: element)
-            self.head!.next = temp
-            if(isFullH(self.head) > self.size) {
-                self.size = self.size + 1
-            }
-        }
+        self.items.append(element)
     }
     
-    mutating func pop()-> T? {
-        if(isEmpty()) {
-            return nil
-        } else {
-            let temp = self.head!
-            self.head = self.head!.next
-            return temp.data
+    mutating func pop() -> T? {
+        if !isEmpty(){
+            return self.items.removeLast()
         }
+        return nil
     }
     
     var description: String {
-        if(isEmpty()) {
-            return "empty"
+        var str = ""
+        for item in self.items {
+            str += "\(item) "
         }
-        return descriptionH(head!)
-    }
-    
-    func descriptionH(c: Node<T>) -> String {
-        if(c.next == nil) {
-            return "\(c.data)"
-        } else {
-            return "\(descriptionH(c.next!)) \(c.data)"
-        }
+        return str
     }
 }
 
