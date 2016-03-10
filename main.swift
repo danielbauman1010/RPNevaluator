@@ -23,3 +23,7 @@ var fourthTest = "12 40 - sqrt 3 5 +"
 print("")
 print("Fourth test:")
 print(eval.rpEval(fourthTest))
+var fifthTest = "12 0 /"
+print("")
+print("FifthTest")
+print(eval.rpEval(fifthTest))

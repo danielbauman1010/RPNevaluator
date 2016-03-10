@@ -43,11 +43,21 @@ class Evaluator {
                         } else {
                             print("There weren't enough numbers for this operation")
                         }
-                    case .binaryOP(_, let operation):
+                    case .binaryOP(let symbol, let operation):
                         if let a = stack.pop() {
                             if let b = stack.pop() {
-                                stack.push(operation(b,a))
-                                print("\(stack) H")
+                                if(symbol == "/") {
+                                    if(a != 0) {
+                                        stack.push(operation(b,a))
+                                        print("\(stack) H")
+                                    } else {
+                                        print("Cannot devide by zero.")
+                                    }
+                                } else {
+                                    stack.push(operation(b,a))
+                                    print("\(stack) H")
+                                }
+                                
                             } else {
                                 print("There weren't enough numbers for this operation")
                             }
